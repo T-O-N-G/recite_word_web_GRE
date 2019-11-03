@@ -83,7 +83,10 @@ func main() {
 	DB.SetMaxOpenConns(100)                  //设置最大连接数
 	DB.SetMaxIdleConns(16)                   //设置闲置连接数
 
-	e.GET("/", func(c echo.Context) error {
+	e.Static("/static", "static")
+	e.File("/", "static/index.html")
+
+	e.GET("/words", func(c echo.Context) error {
 		if err != nil {
 			fmt.Println(err)
 		}
