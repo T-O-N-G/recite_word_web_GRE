@@ -11,16 +11,6 @@ import (
 	"time"
 )
 
-type (
-	WordMean struct {
-		Error string `json:"error"`
-		Id    string `json:"id"`
-		Mean  string `json:"mean"`
-		Word  string `json:"word"`
-		List  string `json:"list"`
-	}
-)
-
 const (
 	USERNAME = ""
 	PASSWORD = ""
@@ -29,7 +19,6 @@ const (
 	PORT     = 3306
 	DATABASE = ""
 )
-
 
 func getJSON(sqlString string, db *sql.DB, query string) (string, error) {
 	rows, err := db.Query(sqlString, query)
@@ -71,7 +60,6 @@ func getJSON(sqlString string, db *sql.DB, query string) (string, error) {
 	fmt.Println(string(jsonData))
 	return string(jsonData), nil
 }
-
 
 func main() {
 	// Echo instance
@@ -125,7 +113,6 @@ func main() {
 		}
 		return c.JSON(http.StatusOK, response)
 	})
-
 
 	e.Logger.Fatal(e.Start(":4000"))
 }
