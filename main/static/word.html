@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>GRE你太美</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/vue.js"></script>
+    <script src="js/axios.min.js"></script>
+
+</head>
+
+<body style="background-color:#f5f5f5">
+
+<div class="container" id="main">
+    <br>
+
+    <div class="row">
+        <div class="col-md-3">&nbsp;</div>
+        <div class="col-md-6">
+
+            <h1 id="title">{{word}}</h1>&nbsp;
+            <table class="table table-bordered">
+                <tbody>
+                <tr v-for="(item, index) in option4">
+                    <td @click="check(index)">{{item}}</td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <br>
+
+</div>
+<script>
+    function random(max) {
+        return Math.floor(Math.random() * max);
+    }
+
+    function getQueryVariable(variable) {
+        var query = window.location.search.substring(1);
+        var vars = query.split("&");
+        for (var i = 0; i < vars.length; i++) {
+            var pair = vars[i].split("=");
+            if (pair[0] == variable) {
+                return pair[1];
+            }
+        }
+        return (false);
+    }
+
+    let baseUrl = ""
+    var vm = new Vue({
+        el: '#main',
+        data: {
+            info: "",
+            index: 0,
+            lists: "",
+            word: "",
+            mean: "",
+            options: [],
+            option4: [],
+            answer: 0,
+            errorList: []
+        },
+        methods: {
+            gotoIndex: function (index) {
+                $("#title").css("color","black");
+                vm._data.index = parseInt(index);
+                // console.log(vm._data.lists[vm._data.index]);
+                vm._data.info = "";
+                vm._data.word = vm._data.lists[vm._data.index]["word"];
+                vm._data.mean = vm._data.lists[vm._data.index]["mean"];
+                vm._data.option4 = [];
+                for (var i = 0; i < 4; i++) {
+                    vm._data.option4.push(vm._data.options[random(150)]["mean"]);
+                }
+                vm._data.answer = random(4);
+                vm._data.option4[vm._data.answer] = vm._data.mean;
+            },
+
+
+            next: function () {
+                vm._data.index += 1;
+                vm.gotoIndex(vm._data.index);
+            },
+
+
+            loadList: function () {
+                vm._data.list = getQueryVariable("list");
+                if (vm._data.list == "rand") {
+                    axios.get(baseUrl + '/words', {})
+                        .then(function (response) {
+                            if (response.status == 200) {
+                                vm._data.lists = JSON.parse(response.data);
+                                vm.gotoIndex(0)
+                            }
+                        })
+                        .catch(function (err) {
+                            console.log(err);
+                        });
+                } else {
+                    axios.get(baseUrl + '/list/' + vm._data.list, {})
+                        .then(function (response) {
+                            if (response.status == 200) {
+                                vm._data.lists = JSON.parse(response.data);
+                                vm.gotoIndex(0)
+                            }
+                        })
+                        .catch(function (err) {
+                            console.log(err);
+                        });
+                }
+            },
+
+            loadOptions: function () {
+                axios.get(baseUrl + '/means_r/150', {})
+                    .then(function (response) {
+                        if (response.status == 200) {
+                            vm._data.options = JSON.parse(response.data);
+                            vm.loadList();
+
+                        }
+                    })
+                    .catch(function (err) {
+                        console.log(err);
+                    });
+            },
+
+            check: function (index) {
+                if (index == vm._data.answer) {
+                    vm.next();
+                } else {
+                    $("#title").css("color","red");
+                    console.log("wrong");
+                }
+            }
+        },
+    });
+    vm.loadOptions();
+
+</script>
+
+</body>
+
+</html>

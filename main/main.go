@@ -99,8 +99,7 @@ func main() {
 
 	e.GET("/list/:list", func(c echo.Context) error {
 		list := c.Param("list")
-		fmt.Println(list)
-		response, error := getJSON("SELECT * FROM WC1500 WHERE WC1500.list=?", DB, list)
+		response, error := getJSON("SELECT * FROM WC1500 WHERE WC1500.list=? ORDER BY RAND()", DB, list)
 		if error != nil {
 			fmt.Println(err)
 		}
@@ -109,7 +108,6 @@ func main() {
 
 	e.GET("/means_r/:means", func(c echo.Context) error {
 		means := c.Param("means")
-		fmt.Println(means)
 		response, error := getJSON("SELECT mean FROM WC1500 ORDER BY RAND() LIMIT ?", DB, means)
 		if error != nil {
 			fmt.Println(err)
@@ -118,4 +116,5 @@ func main() {
 	})
 
 	e.Logger.Fatal(e.Start(":4000"))
+
 }
