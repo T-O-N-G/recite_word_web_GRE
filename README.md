@@ -1,6 +1,9 @@
 # 背单词 网页版
 想要弄个能自定义词表的
 
+## 体验 Demo
+http://blog.tongxx.top:4000
+
 ## 表结构
 ``` sql
 CREATE TABLE `WC1500` (
