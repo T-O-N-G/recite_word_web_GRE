@@ -58,6 +58,7 @@
     var vm = new Vue({
         el: '#main',
         data: {
+            total: 0,
             info: "",
             index: 0,
             lists: "",
@@ -70,10 +71,14 @@
         },
         methods: {
             gotoIndex: function (index) {
-                $("#title").css("color","black");
+                $("#title").css("color", "black");
                 vm._data.index = parseInt(index);
                 // console.log(vm._data.lists[vm._data.index]);
                 vm._data.info = "";
+                if(index>vm._data.lists.length){
+                    location.href = "../"
+                }
+
                 vm._data.word = vm._data.lists[vm._data.index]["word"];
                 vm._data.mean = vm._data.lists[vm._data.index]["mean"];
                 vm._data.option4 = [];
@@ -136,7 +141,8 @@
                 if (index == vm._data.answer) {
                     vm.next();
                 } else {
-                    $("#title").css("color","red");
+                    $("#title").css("color", "red");
+                    vm._data.errorList.push([vm._data.word, vm._data.mean])
                     console.log("wrong");
                 }
             }
