@@ -23,17 +23,31 @@
         <div class="col-md-3">&nbsp;</div>
         <div class="col-md-6">
 
-            <h1 id="title">{{word}}</h1>&nbsp;
-            <table class="table table-bordered">
-                <tbody>
-                <tr v-for="(item, index) in option4">
-                    <td @click="check(index)">{{item}}</td>
-                </tr>
+           <div id="word">
+               <h1 id="title">{{word}}</h1>&nbsp;
+               <table class="table table-bordered">
+                   <tbody>
+                   <tr v-for="(item, index) in option4">
+                       <td @click="check(index)">{{item}}</td>
+                   </tr>
 
-                </tbody>
-            </table>
+                   </tbody>
+               </table>
+           </div>
+
+            <div id="errors" style="display: none;">
+                <div v-for="(item, index) in errorList">
+                    <div  class="card">
+                        <div class="card-header bg-secondary text-white">{{item[0]}}</div>
+                        <div class="card-body">{{item[1]}}</div>
+
+                    </div>
+                    <br>
+                </div>
+            </div>
         </div>
     </div>
+
     <br>
 
 </div>
@@ -75,8 +89,10 @@
                 vm._data.index = parseInt(index);
                 // console.log(vm._data.lists[vm._data.index]);
                 vm._data.info = "";
-                if(index>vm._data.lists.length){
-                    location.href = "../"
+                if (index > vm._data.lists.length) {
+                    // location.href = "../"
+                    $("#word").hide();
+                    $("#errors").show();
                 }
 
                 vm._data.word = vm._data.lists[vm._data.index]["word"];
@@ -142,7 +158,9 @@
                     vm.next();
                 } else {
                     $("#title").css("color", "red");
-                    vm._data.errorList.push([vm._data.word, vm._data.mean])
+                    if (vm._data.errorList.length ==0 || vm._data.word != vm._data.errorList[vm._data.errorList.length - 1][0]) {
+                        vm._data.errorList.push([vm._data.word, vm._data.mean])
+                    }
                     console.log("wrong");
                 }
             }
