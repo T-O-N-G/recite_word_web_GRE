@@ -3,6 +3,7 @@
 
 ## 体验 Demo
 http://blog.tongxx.top:4000
+![demo](https://raw.githubusercontent.com/IvyB/recite_word_web/master/demo.JPG)
 
 ## 表结构
 ``` sql
