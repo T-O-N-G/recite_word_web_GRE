@@ -27,7 +27,7 @@
                 <h1 id="title">{{word}}</h1>&nbsp;
                 <table class="table table-bordered">
                     <tbody>
-                    <tr v-for="(item, index) in option4">
+                    <tr :key="item.word" v-for="(item, index) in option4">
                         <td @click="check(index)" v-html="item"></td>
                     </tr>
 
@@ -40,7 +40,6 @@
                     <div class="card">
                         <div class="card-header bg-secondary text-white">{{item[0]}}</div>
                         <div class="card-body">{{item[1]}}</div>
-
                     </div>
                     <br>
                 </div>
@@ -163,18 +162,20 @@
                     vm._data.option4[index] = '<span style="color: red;">' + vm._data.option4[index] + "</span>";
 
                     vm._data.option4[vm._data.answer] = '<span style="color: green;font-weight:bold;">' + vm._data.option4[vm._data.answer] + "</span>";
-                    if (vm._data.index < vm._data.total) {
-                        if (vm._data.errorList.length == 0 || vm._data.word != vm._data.errorList[vm._data.errorList.length - 1][0]) {
-                            vm._data.errorList.push([vm._data.word, vm._data.mean])
-                        }
-                    }
-                    if (vm._data.word != vm._data.lists[vm._data.lists.length - 1][0]) {
+                    if (vm._data.word != vm._data.lists[vm._data.lists.length - 1]["word"]) {
                         vm._data.lists.push({
                             "word": vm._data.word,
                             "mean": vm._data.mean,
                         })
                     }
-
+                    if (vm._data.index < vm._data.total) {
+                        if (vm._data.errorList.length == 0 || vm._data.word != vm._data.errorList[vm._data.errorList.length - 1][0]) {
+                            vm._data.errorList.push([vm._data.word, vm._data.mean])
+                        }
+                    } else {
+                        // 强行触发重新渲染v-html
+                        vm._data.word = vm._data.word + " ";
+                    }
                 }
             }
         },
