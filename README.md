@@ -1,9 +1,24 @@
 # 背单词 网页版
 想要弄个能自定义词表的
 
+> Do not gentle into that good night.
+
+
+> 抱着置之死地和后生的心态，相信重复的力量，单词其实那么简单！
+
+
+
 ## 体验 Demo
 http://blog.tongxx.top:4000
 ![demo](https://raw.githubusercontent.com/IvyB/recite_word_web/master/demo.JPG)
+
+
+## 功能
+- 上传了31个list
+- 可以随机抽取20个词
+- 每道题做完显示正确答案选项 (绿色 加粗)
+- 背错的单词加入到背词队列的最后
+- 当所有词都答对了，显示答错过的单词和释义
 
 ## 表结构
 ``` sql

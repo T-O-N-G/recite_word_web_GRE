@@ -160,6 +160,8 @@
                     vm._data.option4[vm._data.answer] = '<span style="color: green;font-weight:bold;">' + vm._data.option4[vm._data.answer] + "</span>";
                     vm.next();
                 } else {
+                    vm._data.option4[index] = '<span style="color: red;">' + vm._data.option4[index] + "</span>";
+
                     vm._data.option4[vm._data.answer] = '<span style="color: green;font-weight:bold;">' + vm._data.option4[vm._data.answer] + "</span>";
                     if (vm._data.index < vm._data.total) {
                         if (vm._data.errorList.length == 0 || vm._data.word != vm._data.errorList[vm._data.errorList.length - 1][0]) {
