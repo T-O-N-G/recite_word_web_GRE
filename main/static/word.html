@@ -168,10 +168,13 @@
                             vm._data.errorList.push([vm._data.word, vm._data.mean])
                         }
                     }
-                    vm._data.lists.push({
-                        "word": vm._data.word,
-                        "mean": vm._data.mean,
-                    })
+                    if (vm._data.word != vm._data.lists[vm._data.lists.length - 1][0]) {
+                        vm._data.lists.push({
+                            "word": vm._data.word,
+                            "mean": vm._data.mean,
+                        })
+                    }
+
                 }
             }
         },
