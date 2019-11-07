@@ -3,6 +3,7 @@
 
 ## 体验 Demo
 http://blog.tongxx.top:4000
+![demo](https://raw.githubusercontent.com/IvyB/recite_word_web/master/demo.JPG)
 
 ## 表结构
 ``` sql
@@ -38,6 +39,4 @@ const (
 `0.0.0.0:4000/means_r/100` 
 获取指定数量(100)的随机单词意思，用于生成选项
 
-## TO-DO
-已完成 api
-接下来是实现界面
+
