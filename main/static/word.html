@@ -28,7 +28,7 @@
                <table class="table table-bordered">
                    <tbody>
                    <tr v-for="(item, index) in option4">
-                       <td @click="check(index)">{{item}}</td>
+                       <td @click="check(index)" v-html="item"></td>
                    </tr>
 
                    </tbody>
@@ -155,9 +155,12 @@
 
             check: function (index) {
                 if (index == vm._data.answer) {
+                    vm._data.option4[vm._data.answer] = '<span style="color: green;">'+vm._data.option4[vm._data.answer] + "</span>";
                     vm.next();
                 } else {
-                    $("#title").css("color", "red");
+                    // $("#title").css("color", "red");
+                    // vm._data.option4[index] = '<span style="color: red;">'+vm._data.option4[index] + "</span>";
+                    vm._data.option4[vm._data.answer] = '<span style="color: green;">'+vm._data.option4[vm._data.answer] + "</span>";
                     if (vm._data.errorList.length ==0 || vm._data.word != vm._data.errorList[vm._data.errorList.length - 1][0]) {
                         vm._data.errorList.push([vm._data.word, vm._data.mean])
                     }
