@@ -11,13 +11,21 @@ import (
 	"time"
 )
 
+//const (
+//	USERNAME = ""
+//	PASSWORD = ""
+//	NETWORK  = "tcp"
+//	SERVER   = ""
+//	PORT     = 3306
+//	DATABASE = ""
+//)
 const (
-	USERNAME = ""
-	PASSWORD = ""
+	USERNAME = "tong"
+	PASSWORD = "DeepDarkM"
 	NETWORK  = "tcp"
-	SERVER   = ""
+	SERVER   = "blog.tongxx.top"
 	PORT     = 3306
-	DATABASE = ""
+	DATABASE = "gre"
 )
 
 func getJSON(sqlString string, db *sql.DB, query string) (string, error) {
