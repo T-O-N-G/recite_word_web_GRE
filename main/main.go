@@ -106,6 +106,15 @@ func main() {
 		return c.JSON(http.StatusOK, response)
 	})
 
+	e.GET("/list800/:list", func(c echo.Context) error {
+		list := c.Param("list")
+		response, error := getJSON("SELECT * FROM WC800 WHERE WC800.list=? ORDER BY RAND()", DB, list)
+		if error != nil {
+			fmt.Println(err)
+		}
+		return c.JSON(http.StatusOK, response)
+	})
+
 	e.GET("/means_r/:means", func(c echo.Context) error {
 		means := c.Param("means")
 		response, error := getJSON("SELECT mean FROM WC1500 ORDER BY RAND() LIMIT ?", DB, means)
