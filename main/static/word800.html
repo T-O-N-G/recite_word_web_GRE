@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <title>GRE你太美</title>
     <meta charset="utf-8">
@@ -11,20 +10,19 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/vue.js"></script>
     <script src="js/axios.min.js"></script>
-
 </head>
 
 <body class="bg-dark text-white">
-
 <div class="container" id="main">
     <br>
-    <div style="position:absolute;right:40px;bottom:30px; z-index:9999;"  @click="next">
+    <div style="position:absolute;right:40px;bottom:30px; z-index:9999;" @click="next">
         <button class="btn btn-success" style="width: 80px">NEXT</button>
     </div>
 
     <div class="row">
         <div class="col-md-3">&nbsp;</div>
         <div class="col-md-6">
+
             <div class="card">
                 <div class="card-header bg-secondary text-white"><h3>{{lists[index]["word"]}}</h3></div>
                 <div class="card-body text-dark">
@@ -40,11 +38,9 @@
                     近义词：
                     <table class="table table-bordered">
                         <tbody>
-
                         <tr v-for="item in lists[index]['similar'].split(',')">
                             <td>{{item}}</td>
                         </tr>
-
                         </tbody>
                     </table>
                 </div>
@@ -61,10 +57,9 @@
             </div>
         </div>
     </div>
-
     <br>
-
 </div>
+
 <script>
     function getQueryVariable(variable) {
         var query = window.location.search.substring(1);
@@ -88,8 +83,10 @@
         methods: {
             next: function () {
                 vm._data.index += 1;
+                if (index > vm._data.lists.length) {
+                    location.href = "../"
+                }
             },
-
 
             loadList: function () {
                 vm._data.list = getQueryVariable("list");
@@ -108,10 +105,6 @@
         },
     });
     vm.loadList();
-
 </script>
-
-
 </body>
-
 </html>
