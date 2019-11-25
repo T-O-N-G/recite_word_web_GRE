@@ -24,7 +24,7 @@
         <div class="col-md-6">
 
             <div id="word">
-                <h1 id="title" class="text-white" >{{word}}</h1>&nbsp;
+                <h1 id="title" class="text-white">{{word}}</h1>&nbsp;
                 <table class="table table-bordered">
                     <tbody>
                     <tr :key="item.word" v-for="(item, index) in option4">
@@ -73,9 +73,9 @@
         data: {
             total: 0,
             info: "",
+            word: "",
             index: 0,
             lists: "",
-            word: "",
             mean: "",
             options: [],
             option4: [],
@@ -112,9 +112,10 @@
 
 
             loadList: function () {
-                vm._data.list = getQueryVariable("list");
-                if (vm._data.list == "rand") {
-                    axios.get(baseUrl + '/words', {})
+                let list = getQueryVariable("list");
+                let word = getQueryVariable("word");
+                if (list == "rand") {
+                    axios.get(baseUrl + '/word/' + word + '/rand', {})
                         .then(function (response) {
                             if (response.status == 200) {
                                 vm._data.lists = JSON.parse(response.data);
@@ -126,7 +127,7 @@
                             console.log(err);
                         });
                 } else {
-                    axios.get(baseUrl + '/list/' + vm._data.list, {})
+                    axios.get(baseUrl + '/word/' + word + '/list/' + list, {})
                         .then(function (response) {
                             if (response.status == 200) {
                                 vm._data.lists = JSON.parse(response.data);
@@ -146,7 +147,6 @@
                         if (response.status == 200) {
                             vm._data.options = JSON.parse(response.data);
                             vm.loadList();
-
                         }
                     })
                     .catch(function (err) {

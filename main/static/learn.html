@@ -86,13 +86,15 @@
             next: function () {
                 vm._data.index += 1;
                 if (index > vm._data.lists.length) {
+                    alert("finish!");
                     location.href = "../"
                 }
             },
 
             loadList: function () {
-                vm._data.list = getQueryVariable("list");
-                axios.get(baseUrl + '/list800/' + vm._data.list, {})
+                let list = getQueryVariable("list");
+                let word = getQueryVariable("word");
+                axios.get(baseUrl + '/word_learn/' + word + '/list/' + list, {})
                     .then(function (response) {
                         if (response.status == 200) {
                             vm._data.lists = JSON.parse(response.data);
