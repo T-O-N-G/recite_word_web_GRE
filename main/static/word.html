@@ -36,6 +36,8 @@
             </div>
 
             <div id="errors" style="display: none;">
+                <h3>完成了{{word_name}}的{{list_name}} 正确率 {{(1-errorList.length/total)*100}}%</h3>
+
                 <div v-for="(item, index) in errorList">
                     <div class="card">
                         <div class="card-header bg-secondary text-white">{{item[0]}}</div>
@@ -71,6 +73,8 @@
     var vm = new Vue({
         el: '#main',
         data: {
+            list_name:"",
+            word_name:"",
             total: 0,
             info: "",
             word: "",
@@ -114,7 +118,9 @@
             loadList: function () {
                 let list = getQueryVariable("list");
                 let word = getQueryVariable("word");
+                vm._data.word_name  =  word;
                 if (list == "rand") {
+                    vm._data.list_name  =  "随机一组";
                     axios.get(baseUrl + '/word/' + word + '/rand', {})
                         .then(function (response) {
                             if (response.status == 200) {
@@ -127,6 +133,7 @@
                             console.log(err);
                         });
                 } else {
+                    vm._data.list_name  =  "List"+list;
                     axios.get(baseUrl + '/word/' + word + '/list/' + list, {})
                         .then(function (response) {
                             if (response.status == 200) {
