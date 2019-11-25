@@ -17,11 +17,11 @@ const (
 	NETWORK  = "tcp"
 	SERVER   = ""
 	PORT     = 3306
-	DATABASE = ""
+	DATABASE = "gre"
 )
 
-func getJSON(sqlString string, db *sql.DB, query string) (string, error) {
-	rows, err := db.Query(sqlString, query)
+func getJSON(sqlString string, db *sql.DB) (string, error) {
+	rows, err := db.Query(sqlString)
 	if err != nil {
 		return "", err
 	}
@@ -57,7 +57,7 @@ func getJSON(sqlString string, db *sql.DB, query string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	fmt.Println(string(jsonData))
+	//fmt.Println(string(jsonData))
 	return string(jsonData), nil
 }
 
@@ -86,29 +86,19 @@ func main() {
 	e.Static("/static", "static")
 	e.File("/", "static/index.html")
 
-	e.GET("/words", func(c echo.Context) error {
-		if err != nil {
-			fmt.Println(err)
-		}
-		response, error := getJSON("SELECT * FROM WC1500 ORDER BY RAND() LIMIT ?", DB, "20")
+	e.GET("/word/:word/rand", func(c echo.Context) error {
+		word := c.Param("word")
+		response, error := getJSON("SELECT * FROM ("+word+") ORDER BY RAND() LIMIT 20", DB)
 		if error != nil {
 			fmt.Println(err)
 		}
 		return c.JSON(http.StatusOK, response)
 	})
 
-	e.GET("/list/:list", func(c echo.Context) error {
+	e.GET("/word/:word/list/:list", func(c echo.Context) error {
 		list := c.Param("list")
-		response, error := getJSON("SELECT * FROM WC1500 WHERE WC1500.list=? ORDER BY RAND()", DB, list)
-		if error != nil {
-			fmt.Println(err)
-		}
-		return c.JSON(http.StatusOK, response)
-	})
-
-	e.GET("/list800/:list", func(c echo.Context) error {
-		list := c.Param("list")
-		response, error := getJSON("SELECT * FROM WC800 WHERE WC800.list=? ORDER BY RAND()", DB, list)
+		word := c.Param("word")
+		response, error := getJSON("SELECT * FROM ("+word+") WHERE list=("+list+") ORDER BY RAND()", DB)
 		if error != nil {
 			fmt.Println(err)
 		}
@@ -117,7 +107,7 @@ func main() {
 
 	e.GET("/means_r/:means", func(c echo.Context) error {
 		means := c.Param("means")
-		response, error := getJSON("SELECT mean FROM WC1500 ORDER BY RAND() LIMIT ?", DB, means)
+		response, error := getJSON("SELECT mean FROM WC30000 ORDER BY RAND() LIMIT ("+means+")", DB)
 		if error != nil {
 			fmt.Println(err)
 		}
