@@ -17,12 +17,14 @@
 <body class="bg-dark text-white">
 
 <div class="container" id="main">
+    <div style="position:absolute;right:20px;top:20px; z-index:9999;" id="process">
+        {{index}}/{{lists.length}}
+    </div>
     <br>
 
     <div class="row">
         <div class="col-md-3">&nbsp;</div>
         <div class="col-md-6">
-
             <div id="word">
                 <h1 id="title" class="text-white">{{word}}</h1>&nbsp;
                 <table class="table table-bordered">
@@ -73,8 +75,8 @@
     var vm = new Vue({
         el: '#main',
         data: {
-            list_name:"",
-            word_name:"",
+            list_name: "",
+            word_name: "",
             total: 0,
             info: "",
             word: "",
@@ -95,6 +97,7 @@
                 if (index > vm._data.lists.length) {
                     // location.href = "../"
                     $("#word").hide();
+                    $("#process").hide();
                     $("#errors").show();
                 }
 
@@ -118,9 +121,9 @@
             loadList: function () {
                 let list = getQueryVariable("list");
                 let word = getQueryVariable("word");
-                vm._data.word_name  =  word;
+                vm._data.word_name = word;
                 if (list == "rand") {
-                    vm._data.list_name  =  "随机一组";
+                    vm._data.list_name = "随机一组";
                     axios.get(baseUrl + '/word/' + word + '/rand', {})
                         .then(function (response) {
                             if (response.status == 200) {
@@ -133,7 +136,7 @@
                             console.log(err);
                         });
                 } else {
-                    vm._data.list_name  =  "List"+list;
+                    vm._data.list_name = "List" + list;
                     axios.get(baseUrl + '/word/' + word + '/list/' + list, {})
                         .then(function (response) {
                             if (response.status == 200) {
