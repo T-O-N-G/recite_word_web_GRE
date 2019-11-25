@@ -142,7 +142,8 @@
             },
 
             loadOptions: function () {
-                axios.get(baseUrl + '/means_r/150', {})
+                let word = getQueryVariable("word");
+                axios.get(baseUrl + '/word/' + word + '/means_r/150', {})
                     .then(function (response) {
                         if (response.status == 200) {
                             vm._data.options = JSON.parse(response.data);

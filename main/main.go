@@ -116,12 +116,13 @@ func main() {
 		return c.JSON(http.StatusOK, response)
 	})
 
-	e.GET("/means_r/:means", func(c echo.Context) error {
+	e.GET("/word/:word/means_r/:means", func(c echo.Context) error {
 		means := c.Param("means")
+		word := c.Param("word")
 		pattern := "\\d+" //反斜杠要转义
 		result, _ := regexp.MatchString(pattern, means)
 		if result == true {
-			response, error := getJSON("SELECT mean FROM WC3000 ORDER BY RAND() LIMIT "+means, DB)
+			response, error := getJSON("SELECT mean FROM ("+word+") ORDER BY RAND() LIMIT "+means, DB)
 			if error != nil {
 				fmt.Println(err)
 			}
