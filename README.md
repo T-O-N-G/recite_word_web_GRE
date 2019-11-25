@@ -10,9 +10,10 @@
 
 ## 体验 Demo
 http://blog.tongxx.top:4000
-![demo](https://raw.githubusercontent.com/IvyB/recite_word_web/master/demo.JPG)
 
-![demo](https://raw.githubusercontent.com/IvyB/recite_word_web/master/demo1.JPG)
+![demo](https://raw.githubusercontent.com/IvyB/recite_word_web_GRE/master/demo1.JPG)
+
+![demo](https://raw.githubusercontent.com/IvyB/recite_word_web_GRE/master/demo.JPG)
 
 
 
