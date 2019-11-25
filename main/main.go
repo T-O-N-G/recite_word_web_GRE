@@ -8,6 +8,7 @@ import (
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
 	"net/http"
+	"regexp"
 	"time"
 )
 
@@ -17,7 +18,7 @@ const (
 	NETWORK  = "tcp"
 	SERVER   = ""
 	PORT     = 3306
-	DATABASE = "gre"
+	DATABASE = ""
 )
 
 func getJSON(sqlString string, db *sql.DB) (string, error) {
@@ -105,13 +106,29 @@ func main() {
 		return c.JSON(http.StatusOK, response)
 	})
 
-	e.GET("/means_r/:means", func(c echo.Context) error {
-		means := c.Param("means")
-		response, error := getJSON("SELECT mean FROM WC30000 ORDER BY RAND() LIMIT ("+means+")", DB)
+	e.GET("/word_learn/:word/list/:list", func(c echo.Context) error {
+		list := c.Param("list")
+		word := c.Param("word")
+		response, error := getJSON("SELECT * FROM ("+word+") WHERE WC800.list=("+list+") ORDER BY RAND()", DB)
 		if error != nil {
 			fmt.Println(err)
 		}
 		return c.JSON(http.StatusOK, response)
+	})
+
+	e.GET("/means_r/:means", func(c echo.Context) error {
+		means := c.Param("means")
+		pattern := "\\d+" //反斜杠要转义
+		result, _ := regexp.MatchString(pattern, means)
+		if result == true {
+			response, error := getJSON("SELECT mean FROM WC3000 ORDER BY RAND() LIMIT "+means, DB)
+			if error != nil {
+				fmt.Println(err)
+			}
+			return c.JSON(http.StatusOK, response)
+		} else {
+			return c.HTML(http.StatusInternalServerError, "数量必须是个数字")
+		}
 	})
 
 	e.Logger.Fatal(e.Start(":4000"))
