@@ -12,6 +12,8 @@
 http://blog.tongxx.top:4000
 ![demo](https://raw.githubusercontent.com/IvyB/recite_word_web/master/demo.JPG)
 
+![demo](https://raw.githubusercontent.com/IvyB/recite_word_web/master/demo1.JPG)
+
 
 
 ## 功能
