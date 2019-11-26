@@ -38,7 +38,7 @@
             </div>
 
             <div id="errors" style="display: none;">
-                <h3>完成了{{word_name}}的{{list_name}} 正确率 {{(1-errorList.length/total)*100}}%</h3>
+                <h3>完成了{{word_name}}的{{list_name}} 正确率 {{parseInt((1-errorList.length/total)*100)}}%</h3>
 
                 <div v-for="(item, index) in errorList">
                     <div class="card">
@@ -71,6 +71,16 @@
         return (false);
     }
 
+    function in_array(stringToSearch, arrayToSearch) {
+        for (s = 0; s < arrayToSearch.length; s++) {
+            thisEntry = arrayToSearch[s].toString();
+            if (thisEntry == stringToSearch) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     let baseUrl = ""
     var vm = new Vue({
         el: '#main',
@@ -94,7 +104,7 @@
                 vm._data.index = parseInt(index);
                 // console.log(vm._data.lists[vm._data.index]);
                 vm._data.info = "";
-                if (index > vm._data.lists.length) {
+                if (index == vm._data.lists.length) {
                     // location.href = "../"
                     $("#word").hide();
                     $("#process").hide();
@@ -105,7 +115,11 @@
                 vm._data.mean = vm._data.lists[vm._data.index]["mean"];
                 vm._data.option4 = [];
                 for (var i = 0; i < 4; i++) {
-                    vm._data.option4.push(vm._data.options[random(150)]["mean"]);
+                    var option = vm._data.options[random(150)]["mean"];
+                    while (in_array(option, vm._data.option4) || option == vm._data.mean) {
+                        option = vm._data.options[random(150)]["mean"];
+                    }
+                    vm._data.option4.push(option);
                 }
                 vm._data.answer = random(4);
                 vm._data.option4[vm._data.answer] = vm._data.mean;
