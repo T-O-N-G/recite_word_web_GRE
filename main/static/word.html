@@ -114,14 +114,14 @@
                 vm._data.word = vm._data.lists[vm._data.index]["word"];
                 vm._data.mean = vm._data.lists[vm._data.index]["mean"];
                 vm._data.option4 = [];
-                for (var i = 0; i < 4; i++) {
+                for (var i = 0; i < 5; i++) {
                     var option = vm._data.options[random(150)]["mean"];
                     while (in_array(option, vm._data.option4) || option == vm._data.mean) {
                         option = vm._data.options[random(150)]["mean"];
                     }
                     vm._data.option4.push(option);
                 }
-                vm._data.answer = random(4);
+                vm._data.answer = random(5);
                 vm._data.option4[vm._data.answer] = vm._data.mean;
             },
 
