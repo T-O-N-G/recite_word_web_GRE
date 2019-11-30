@@ -9,6 +9,7 @@
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/vue.js"></script>
+    <script src="js/common.js"></script>
     <script src="js/axios.min.js"></script>
     <meta name="theme-color" content="#6c757d">
 
@@ -65,19 +66,7 @@
 </div>
 
 <script>
-    function getQueryVariable(variable) {
-        var query = window.location.search.substring(1);
-        var vars = query.split("&");
-        for (var i = 0; i < vars.length; i++) {
-            var pair = vars[i].split("=");
-            if (pair[0] == variable) {
-                return pair[1];
-            }
-        }
-        return (false);
-    }
-
-    let baseUrl = ""
+    let baseUrl = "";
     var vm = new Vue({
         el: '#main',
         data: {
@@ -89,6 +78,14 @@
                 vm._data.index += 1;
                 if (index > vm._data.lists.length) {
                     alert("finish!");
+                    var logData = JSON.parse(localStorage.getItem("log"));
+                    let logMessage = vm._data.word_name + "的" + vm._data.list_name + "近义词";
+                    if (!logData[getNowFormatDate()]) {
+                        logData[getNowFormatDate()] = [logMessage];
+                    } else {
+                        logData[getNowFormatDate()].push(logMessage);
+                    }
+                    localStorage.setItem("log", JSON.stringify(logData));
                     location.href = "../"
                 }
             },

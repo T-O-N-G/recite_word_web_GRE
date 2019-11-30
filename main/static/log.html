@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GRE你太美</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/vue.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/axios.min.js"></script>
+    <meta name="theme-color" content="#6c757d">
+</head>
+
+<body class="bg-dark text-white">
+<div class="container" id="main">
+    <br>
+
+    <div class="row">
+        <div class="col-md-3">&nbsp;</div>
+        <div class="col-md-6">
+            <div v-for="(value, key) in lists" :key="key">
+                <div class="card">
+                    <div class="card-header bg-secondary text-white">
+                        <h3>{{key}}</h3>
+                    </div>
+                    <div class="card-body text-dark">
+                        <p v-for="logMessage in value">{{logMessage}}</p>
+                    </div>
+                </div>
+                <br>
+            </div>
+        </div>
+    </div>
+    <br>
+</div>
+
+<script>
+    let baseUrl = "";
+    var vm = new Vue({
+        el: '#main',
+        data: {
+            lists: null,
+        },
+        methods: {
+            loadList: function () {
+                vm._data.lists = JSON.parse(localStorage.getItem("log"));
+            },
+        },
+    });
+    vm.loadList();
+</script>
+</body>
+</html>
+

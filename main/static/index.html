@@ -119,12 +119,18 @@
 
     </div>
     <div class="botCenter">
-        Source Code at Github: <a href="https://github.com/IvyB/recite_word_web_GRE/blob/master/README.md"  class="text-info">IvyB/recite_word_web_GRE</a>
+        Source Code at Github: <a href="https://github.com/IvyB/recite_word_web_GRE/blob/master/README.md"
+                                  class="text-info">IvyB/recite_word_web_GRE</a> | <a href="/static/log.html"
+                                                                                      class="text-info">背词统计</a>
     </div>
     <br>
 </div>
 
 <script>
+    if (!localStorage.getItem("log")) {
+        localStorage.setItem("log", "{}");
+    }
+
     function goToWord(word, list) {
         location.href = "/static/word.html?word=" + word + "&list=" + list;
     }
