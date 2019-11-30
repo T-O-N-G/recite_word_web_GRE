@@ -12,6 +12,12 @@
     <script src="js/vue.js"></script>
     <script src="js/axios.min.js"></script>
     <meta name="theme-color" content="#6c757d">
+    <style>
+        .table-striped > tbody > tr:nth-child(2n+1) > td,
+        .table-striped > tbody > tr:nth-child(2n+1) > th {
+            background-color: #424749;
+        }
+    </style>
 </head>
 
 <body class="bg-dark text-white">
@@ -27,7 +33,7 @@
         <div class="col-md-6">
             <div id="word">
                 <h1 id="title" class="text-white">{{word}}</h1>&nbsp;
-                <table class="table table-bordered">
+                <table class="table table-bordered table-striped">
                     <tbody>
                     <tr :key="item.word" v-for="(item, index) in option4">
                         <td @click="check(index)" v-html="item" class="text-white"></td>
