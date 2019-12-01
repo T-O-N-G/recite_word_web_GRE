@@ -27,7 +27,7 @@
                         <h3>{{key}}</h3>
                     </div>
                     <div class="card-body text-dark">
-                        <p v-for="logMessage in value">{{logMessage}}</p>
+                        <p v-for="(logMessage, index) in value">{{index+1}}. {{logMessage}}</p>
                     </div>
                 </div>
                 <br>
