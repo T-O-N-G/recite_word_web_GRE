@@ -132,6 +132,22 @@ func main() {
 		}
 	})
 
+	e.GET("/word/:word/means_r_en/:means", func(c echo.Context) error {
+		means := c.Param("means")
+		word := c.Param("word")
+		pattern := "\\d+" //反斜杠要转义
+		result, _ := regexp.MatchString(pattern, means)
+		if result == true {
+			response, error := getJSON("SELECT mean_e as mean FROM ("+word+") ORDER BY RAND() LIMIT "+means, DB)
+			if error != nil {
+				fmt.Println(err)
+			}
+			return c.JSON(http.StatusOK, response)
+		} else {
+			return c.HTML(http.StatusInternalServerError, "数量必须是个数字")
+		}
+	})
+
 	e.Logger.Fatal(e.Start(":4000"))
 
 }

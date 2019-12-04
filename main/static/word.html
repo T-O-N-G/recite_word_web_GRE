@@ -77,6 +77,7 @@
             options: [],
             option4: [],
             answer: 0,
+            lang: "",
             errorList: []
         },
         methods: {
@@ -100,7 +101,11 @@
                     localStorage.setItem("log", JSON.stringify(logData));
                 } else {
                     vm._data.word = vm._data.lists[vm._data.index]["word"];
-                    vm._data.mean = vm._data.lists[vm._data.index]["mean"];
+                    if (vm._data.lang === "en") {
+                        vm._data.mean = vm._data.lists[vm._data.index]["mean_e"];
+                    } else {
+                        vm._data.mean = vm._data.lists[vm._data.index]["mean"];
+                    }
                     vm._data.option4 = [];
                     for (var i = 0; i < 5; i++) {
                         var option = vm._data.options[random(150)]["mean"];
@@ -125,38 +130,33 @@
                 let list = getQueryVariable("list");
                 let word = getQueryVariable("word");
                 vm._data.word_name = word;
-                if (list == "rand") {
+                vm._data.list_name = "List" + list;
+                var url = baseUrl + '/word/' + word + '/list/';
+                if (list === "rand") {
                     vm._data.list_name = "随机一组";
-                    axios.get(baseUrl + '/word/' + word + '/rand', {})
-                        .then(function (response) {
-                            if (response.status == 200) {
-                                vm._data.lists = JSON.parse(response.data);
-                                vm._data.total = vm._data.lists.length;
-                                vm.gotoIndex(0)
-                            }
-                        })
-                        .catch(function (err) {
-                            console.log(err);
-                        });
-                } else {
-                    vm._data.list_name = "List" + list;
-                    axios.get(baseUrl + '/word/' + word + '/list/' + list, {})
-                        .then(function (response) {
-                            if (response.status == 200) {
-                                vm._data.lists = JSON.parse(response.data);
-                                vm._data.total = vm._data.lists.length;
-                                vm.gotoIndex(0)
-                            }
-                        })
-                        .catch(function (err) {
-                            console.log(err);
-                        });
+                    url = baseUrl + '/word/' + word + '/rand';
                 }
+                axios.get(url + list, {})
+                    .then(function (response) {
+                        if (response.status == 200) {
+                            vm._data.lists = JSON.parse(response.data);
+                            vm._data.total = vm._data.lists.length;
+                            vm.gotoIndex(0)
+                        }
+                    })
+                    .catch(function (err) {
+                        console.log(err);
+                    });
             },
 
             loadOptions: function () {
                 let word = getQueryVariable("word");
-                axios.get(baseUrl + '/word/' + word + '/means_r/150', {})
+                vm._data.lang = getQueryVariable("lang");
+                var url = baseUrl + '/word/' + word + '/means_r/150';
+                if (vm._data.lang === "en") {
+                    url = baseUrl + '/word/' + word + '/means_r_en/150';
+                }
+                axios.get(url, {})
                     .then(function (response) {
                         if (response.status == 200) {
                             vm._data.options = JSON.parse(response.data);
@@ -174,7 +174,7 @@
                 } else {
                     vm._data.option4[index] = '<span style="color: #ff483f;">' + vm._data.option4[index] + "</span>";
 
-                    vm._data.option4[vm._data.answer] = '<span style="color: #5bd639;font-weight:bold;">' +vm._data.option4[vm._data.answer] + "</span>";
+                    vm._data.option4[vm._data.answer] = '<span style="color: #5bd639;font-weight:bold;">' + vm._data.option4[vm._data.answer] + "</span>";
                     if (vm._data.word != vm._data.lists[vm._data.lists.length - 1]["word"]) {
                         vm._data.lists.push({
                             "word": vm._data.word,

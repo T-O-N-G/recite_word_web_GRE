@@ -56,7 +56,8 @@
                     <label for="list">你要学哪个list？</label>
                     <input type="text" class="form-control" id="WC800" placeholder="List (共8组 配近义词)">
                     <br>
-                    <button class="btn btn-info" onclick="goToWord('WC800', $('#WC800').val())">背词义</button>&nbsp;
+                    <button class="btn btn-danger" onclick="goToWord('WC800', $('#WC800').val(), 'en')">词义EN</button>&nbsp;
+                    <button class="btn btn-info" onclick="goToWord('WC800', $('#WC800').val())">词义</button>&nbsp;
                     <button class="btn btn-success" onclick="goToLearn('WC800', $('#WC800').val())">近义词</button>&nbsp;
                     <input type="button" class="btn btn-primary" value="随机20个" onclick="goToRandWord('WC800')">
                 </div>
@@ -132,8 +133,12 @@
         localStorage.setItem("log", "{}");
     }
 
-    function goToWord(word, list) {
-        location.href = "/static/word.html?word=" + word + "&list=" + list;
+    function goToWord(word, list, lang) {
+        if(lang==='en'){
+            location.href = "/static/word.html?word=" + word + "&list=" + list+"&lang=en";
+        }else {
+            location.href = "/static/word.html?word=" + word + "&list=" + list;
+        }
     }
 
     function goToLearn(word, list) {
