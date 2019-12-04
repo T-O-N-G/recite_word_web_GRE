@@ -135,12 +135,14 @@
                 }
                 vm._data.word_name = word;
                 vm._data.list_name = "List" + list;
-                var url = baseUrl + '/word/' + word + '/list/';
-                if (list === "rand") {
+                var url = baseUrl + '/word/' + word + '/list/'+ list;
+
+                if (list == "rand") {
                     vm._data.list_name = "随机一组";
                     url = baseUrl + '/word/' + word + '/rand';
                 }
-                axios.get(url + list, {})
+
+                axios.get(url, {})
                     .then(function (response) {
                         if (response.status == 200) {
                             vm._data.lists = JSON.parse(response.data);
