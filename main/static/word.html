@@ -129,6 +129,10 @@
             loadList: function () {
                 let list = getQueryVariable("list");
                 let word = getQueryVariable("word");
+                if(list.length<1){
+                    alert("请输入哪一个List");
+                    history.back();
+                }
                 vm._data.word_name = word;
                 vm._data.list_name = "List" + list;
                 var url = baseUrl + '/word/' + word + '/list/';

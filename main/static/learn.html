@@ -93,6 +93,10 @@
             loadList: function () {
                 let list = getQueryVariable("list");
                 let word = getQueryVariable("word");
+                if(list.length<1){
+                    alert("请输入哪一个List");
+                    history.back();
+                }
                 axios.get(baseUrl + '/word_learn/' + word + '/list/' + list, {})
                     .then(function (response) {
                         if (response.status == 200) {
