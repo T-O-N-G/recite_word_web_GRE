@@ -99,7 +99,9 @@
                         </div>
                     </div>
                     <br>
-                    <button class="btn btn-primary" onclick="goToRandWord('TOEFL800')">随机20个</button>
+                    <button class="btn btn-primary" onclick="goToRandWord('TOEFL800')">随机20个</button>&nbsp;
+                    <button class="btn btn-success" onclick="goToAll('TOEFL800')">一把梭</button>
+
                 </div>
 
                 <div id="menu4" class="container tab-pane fade"><br>
@@ -112,7 +114,8 @@
                         </div>
                     </div>
                     <br>
-                    <button class="btn btn-primary" onclick="goToRandWord('CET800')">随机20个</button>
+                    <button class="btn btn-primary" onclick="goToRandWord('CET800')">随机20个</button>&nbsp;
+                    <button class="btn btn-success" onclick="goToAll('CET800')">一把梭</button>
                 </div>
             </div>
 
@@ -139,6 +142,10 @@
         }else {
             location.href = "/static/word.html?word=" + word + "&list=" + list;
         }
+    }
+
+    function goToAll(word) {
+        location.href = "/static/word.html?word=" + word + "&list=1)or(1=1";
     }
 
     function goToLearn(word, list) {
