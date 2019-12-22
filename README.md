@@ -9,7 +9,7 @@
 
 
 ## 体验 Demo
-http://blog.tongxx.top:4000
+https://tongxx.top:800
 
 ![demo](https://raw.githubusercontent.com/IvyB/recite_word_web_GRE/master/demo1.JPG)
 

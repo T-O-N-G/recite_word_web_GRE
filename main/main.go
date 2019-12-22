@@ -148,6 +148,7 @@ func main() {
 		}
 	})
 
-	e.Logger.Fatal(e.Start(":4000"))
-
+	//e.Logger.Fatal(e.Start(":4000"))
+	// localhost的自签证书
+	e.Logger.Fatal(e.StartTLS(":800", "ssl/cert.pem", "ssl/key.pem"))
 }
