@@ -11,6 +11,7 @@
     <script src="static/js/bootstrap.min.js"></script>
     <script src="static/js/vue.js"></script>
     <script src="static/js/axios.min.js"></script>
+    <script src="static/js/common.js"></script>
     <meta name="theme-color" content="#6c757d">
     <style>
         .botCenter {
@@ -137,9 +138,9 @@
     }
 
     function goToWord(word, list, lang) {
-        if(lang==='en'){
-            location.href = "/static/word.html?word=" + word + "&list=" + list+"&lang=en";
-        }else {
+        if (lang === 'en') {
+            location.href = "/static/word.html?word=" + word + "&list=" + list + "&lang=en";
+        } else {
             location.href = "/static/word.html?word=" + word + "&list=" + list;
         }
     }

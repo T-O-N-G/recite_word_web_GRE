@@ -37,3 +37,14 @@ function getNowFormatDate() {
     }
     return year + "年" + month + "月" + strDate + "日";
 }
+
+function getAppClient() {
+    var ua = navigator.userAgent.toLowerCase();
+    if (ua.match(/MicroMessenger/i) == "micromessenger" || ua.match(/QQ/i) == "qq") {
+        return true;
+    }
+}
+
+if (getAppClient()) {
+    alert("请使用系统浏览器打开，例如Safari、Chrome :)");
+}
