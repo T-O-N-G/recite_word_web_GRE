@@ -22,7 +22,7 @@
         <button class="btn btn-success" style="width: 80px">NEXT</button>
     </div>
     <div style="position:absolute;right:20px;top:20px; z-index:9999;" id="process">
-        {{index}}/{{lists.length}}
+        {{index+1}}/{{lists.length}}
     </div>
     <div class="row">
         <div class="col-md-3">&nbsp;</div>
@@ -76,7 +76,7 @@
         methods: {
             next: function () {
                 vm._data.index += 1;
-                if (index > vm._data.lists.length) {
+                if (index == vm._data.lists.length) {
                     alert("finish!");
                     var logData = JSON.parse(localStorage.getItem("log"));
                     let logMessage = vm._data.word_name + "的" + vm._data.list_name + "近义词";
