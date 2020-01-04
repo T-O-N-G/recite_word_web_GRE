@@ -49,6 +49,9 @@
                 <li class="nav-item">
                     <a class="nav-link text-white" data-toggle="pill" href="#menu4">CET800</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" data-toggle="pill" href="#menu5">Special</a>
+                </li>
             </ul>
             <br><br>
             <div class="tab-content">
@@ -117,6 +120,18 @@
                     <br>
                     <button class="btn btn-primary" onclick="goToRandWord('CET800')">随机20个</button>&nbsp;
                     <button class="btn btn-success" onclick="goToAll('CET800')">一把梭</button>
+                </div>
+                <div id="menu5" class="container tab-pane fade"><br>
+                    <h1>Special List</h1>&nbsp;<br>
+                    <label for="list">你要背哪个list？</label>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" id="TJJ" placeholder="List (共6组)">
+                        <div class="input-group-append">
+                            <button class="btn btn-success" onclick="goToWord('TJJ', $('#TJJ').val())">Go</button>
+                        </div>
+                    </div>
+                    <br>
+                    <button class="btn btn-primary" onclick="goToRandWord('TJJ')">随机20个</button>&nbsp;
                 </div>
             </div>
 
